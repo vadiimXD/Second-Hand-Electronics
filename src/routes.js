@@ -17,7 +17,7 @@ router.use(thirdController)
 
 //for other all
 router.all("*", (req, res) => {
-    res.send("404")
+    res.render("404", { layout: false })
 })
 
 module.exports = router

@@ -8,6 +8,7 @@ router.get("/register", (req, res) => {
 })
 
 router.post("/register", async (req, res) => {
+    console.log(req.body)
     try {
         await authService.registerUser(req.body.email, req.body.password, req.body)
         res.redirect("/login")

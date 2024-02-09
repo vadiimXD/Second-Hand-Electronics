@@ -19,7 +19,6 @@ app.use(cookieParser())
 app.set('view engine', 'hbs');
 app.set('views', path.resolve('src/views'));
 
-
 app.use(express.static(path.resolve('src/public')));
 app.use(express.urlencoded({ extended: false }));
 app.use(auth)
@@ -36,6 +35,6 @@ app.use(routes)
 
 mongoose.connect(`mongodb://localhost:27017/second-hand-electronics`).then(() => {
     console.log("DB connected successfully")
-    app.listen(port, () => console.log(`Server working on port ${port} :)`))
+    app.listen(port, () => console.log(`Server working on http://localhost:1337/ :)`))
 });
 

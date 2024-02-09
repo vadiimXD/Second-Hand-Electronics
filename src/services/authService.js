@@ -1,4 +1,4 @@
-// const User = require("../models/User")
+const User = require("../models/User")
 const bcrypt = require("bcrypt");
 const jwt = require("../lib/jwt")
 const { SECRET } = require("../config/config")
@@ -16,7 +16,7 @@ exports.registerUser = async (email, password, body) => {
     const salt = await bcrypt.genSalt();
     const saltedHash = await bcrypt.hash(password, salt);
 
-    return User.create({ email, password: saltedHash })
+    return User.create({ email, password: saltedHash, username: body.username })
 }
 
 exports.getUser = async (email) => { return User.findOne({ email: email }) }

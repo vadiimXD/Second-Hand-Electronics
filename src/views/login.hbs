@@ -9,32 +9,39 @@
 
 <body>
 
+    {{#if error}}
+    <div>
+        <div class="errorContainer">
+            <p>{{error}}</p>
+        </div>
+    </div>
+    {{/if}}
     <div id="container">
 
         <nav>
             <ul>
-               <!--For all users-->
-               <li><a href="/">Home</a></li>
-               <li><a href="/catalog">Catalog</a></li>
-               <!--For loggin users-->
-               <li><a href="/create">Create Offer</a></li>
-               <li><a href="/search">Search</a></li>
-               <li><a href="/logout">Logout</a></li>
-               <!--For guest user-->
-               <li><a href="/login">Login</a></li>
-               <li><a href="/register">Register</a></li>
-
+  <!--For all users-->
+                <li><a href="/">Home</a></li>
+                <li><a href="/catalog">Catalog</a></li>
+                {{#if isAuthenticated}}
+                <li><a href="/create">Create Offer</a></li>
+                <li><a href="/search">Search</a></li>
+                <li><a href="/logout">Logout</a></li>
+                {{else}}
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Register</a></li>
+                {{/if}}
             </ul>
 
         </nav>
 
         <section id="loginPage">
-            <form id='loginForm' action="#" method="">
+            <form id='loginForm'  method="post">
                 <label for="email">Email:</label>
-                <input type="text" id="email" name="" placeholder="Email">
+                <input type="text" id="email" name="email" placeholder="Email">
 
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="" placeholder="Password">
+                <input type="password" id="password" name="password" placeholder="Password">
 
                 <input type="submit" class="register" value="Login">
             </form>
