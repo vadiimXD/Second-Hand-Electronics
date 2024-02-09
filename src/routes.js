@@ -2,16 +2,16 @@ const router = require("express").Router();
 
 //here need to be controllers for routing 
 //EXAMPLE
-const staticController=require("./controller/staticController")
-const secondController=require("./controller/test2Controller")
-const thirdController=require("./controller/test3Controller")
+const staticController = require("./controller/staticController")
+const authController = require("./controller/authController")
+const thirdController = require("./controller/test3Controller")
 
 
 //app use routes
 
 //EXAMPLE
 router.use(staticController)
-router.use(secondController)
+router.use(authController)
 router.use(thirdController)
 
 

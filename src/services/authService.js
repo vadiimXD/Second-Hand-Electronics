@@ -5,7 +5,7 @@ const { SECRET } = require("../config/config")
 
 exports.registerUser = async (email, password, body) => {
 
-    if (!body.email || !body.password || !body.repassword) {
+    if (!body.email || !body.password || !body.repassword || !body.username) {
         throw new Error("invalid values")
     }
 

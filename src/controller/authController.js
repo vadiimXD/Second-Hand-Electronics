@@ -37,16 +37,4 @@ router.get("/logout", isAuth, (req, res) => {
     res.redirect("/login")
 })
 
-router.get("/profile", isAuth, async (req, res) => {
-    try {
-        const userInformation = await authService.getUserInfo(req.user.userId).populate("createdCourses").populate("signUpCourses").lean();
-        res.render("profile", { layout: false, userInformation, createdCourses: userInformation.createdCourses, signedCourses: userInformation.signUpCourses })
-    } catch (error) {
-        let errorMess = getErrorMessage(error)
-        res.render(`404`, { layout: false, error: errorMess })
-    }
-})
-
-
-
 module.exports = router
