@@ -4,7 +4,7 @@ const router = require("express").Router();
 //EXAMPLE
 const staticController = require("./controller/staticController")
 const authController = require("./controller/authController")
-const thirdController = require("./controller/test3Controller")
+const electronicsController = require("./controller/electronicsController")
 
 
 //app use routes
@@ -12,7 +12,7 @@ const thirdController = require("./controller/test3Controller")
 //EXAMPLE
 router.use(staticController)
 router.use(authController)
-router.use(thirdController)
+router.use(electronicsController)
 
 
 //for other all
