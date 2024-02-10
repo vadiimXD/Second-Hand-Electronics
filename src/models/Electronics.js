@@ -47,10 +47,10 @@ const electronicsSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "User"
     }],
-    owner: [{
+    owner: {
         type: mongoose.Types.ObjectId,
         ref: "User"
-    }]
+    }
 })
 
 

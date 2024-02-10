@@ -3,7 +3,6 @@ const electronicsService = require("../services/electronicsService");
 const { getErrorMessage } = require("../utils/errorUtils");
 
 const router = require("express").Router();
-//controller woprk with services
 
 router.get("/catalog", async (req, res) => {
     try {
@@ -27,6 +26,38 @@ router.post("/create", isAuth, async (req, res) => {
     } catch (error) {
         const errorMess = getErrorMessage(error);
         res.render("create", { layout: false, error: errorMess })
+    }
+})
+
+router.get("/details/:productId", async (req, res) => {
+    try {
+        const product = await electronicsService.getOneProduct(req.params.productId).lean();
+        const isOwner = product.owner == req.user?.userId
+        console.log(product)
+        res.render("details", { layout: false, product, isOwner })
+    } catch (error) {
+        const errorMess = getErrorMessage(error)
+        res.render("404", { layout: false, error: errorMess })
+    }
+})
+
+router.get("/edit/:productId", isAuth, async (req, res) => {
+    try {
+        const product = await electronicsService.getOneProduct(req.params.productId).lean();
+        res.render("edit", { layout: false, product })
+    } catch (error) {
+        const errorMess = getErrorMessage(error)
+        res.render("404", { layout: false, error: errorMess })
+    }
+})
+
+router.post("/edit/:productId", async (req, res) => {
+    try {
+        await electronicsService.updateProduct(req.params.productId, req.body);
+        res.redirect(`/details/${req.params.productId}`)
+    } catch (error) {
+        const errorMess = getErrorMessage(error)
+        res.render("edit", { layout: false, product: req.body, error: errorMess })
     }
 })
 
