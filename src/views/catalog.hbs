@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Second Hand Electronics</title>
-    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
@@ -39,18 +39,13 @@
 
             <div class="added-electronics">
                 {{#each products}}
-                <a href="/details/{{_id}}" class="added-electronics-in-market">
-                    <img src="{{image}}" class="picture-added-electronics">
-                    <h3>{{name}}</h3>
-                    <span>Price: ${{price}}</span>
-                </a>
+                {{> product}}
                 {{else}}
                 <div class="guest">
                     There are no electronics found...
                 </div>
                 {{/each}}
             </div>
-
 
         </section>
 
