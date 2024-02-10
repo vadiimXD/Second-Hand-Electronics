@@ -20,7 +20,7 @@
 
         <nav>
             <ul>
-  <!--For all users-->
+                <!--For all users-->
                 <li><a href="/">Home</a></li>
                 <li><a href="/catalog">Catalog</a></li>
                 {{#if isAuthenticated}}
@@ -36,33 +36,22 @@
         </nav>
 
         <section id="viewCatalog" class="background-img">
-            <!--If there are one or more electronics-->
+
             <div class="added-electronics">
-                
-                <a href="#" class="added-electronics-in-market">
-                    <img src="./image/laptop.webp" class="picture-added-electronics">
-                    <h3>Laptop HP EliteBook 820 G4</h3>
-                    <span>Price: $153</span>
+                {{#each products}}
+                <a href="/details/{{_id}}" class="added-electronics-in-market">
+                    <img src="{{image}}" class="picture-added-electronics">
+                    <h3>{{name}}</h3>
+                    <span>Price: ${{price}}</span>
                 </a>
-
-                <a href="#" class="added-electronics-in-market">
-                    <img src="./image/tablet.webp" class="picture-added-electronics">
-                    <h3>Tablet Apple iPad Air 16GB</h3>
-                    <span>Price: $92</span>
-                </a>
-
-                <a href="#" class="added-electronics-in-market">
-                    <img src="./image/smartphone.webp" class="picture-added-electronics">
-                    <h3>Samsung Galaxy S21 5G 128GB</h3>
-                    <span>Price: $347</span>
-                </a>
-
+                {{else}}
+                <div class="guest">
+                    There are no electronics found...
+                </div>
+                {{/each}}
             </div>
 
-            <!--If there are no electronics in catalog yet-->
-            <!-- <div class="guest">
-                There are no electronics found...
-            </div> -->
+
         </section>
 
         <footer>@SoftUni - JS Back-End - Second Hand Electronics 2023</footer>
