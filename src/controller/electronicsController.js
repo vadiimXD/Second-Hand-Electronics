@@ -71,4 +71,14 @@ router.get("/buy/:productId", async (req, res) => {
     }
 })
 
+router.get("/delete/:productId", async (req, res) => {
+    try {
+        await electronicsService.deleteProduct(req.params.productId)
+        res.redirect("/catalog")
+    } catch (error) {
+        const errorMess = getErrorMessage(error)
+        res.render("404", { layout: false, error: errorMess })
+    }
+})
+
 module.exports = router
