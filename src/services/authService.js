@@ -16,7 +16,11 @@ exports.registerUser = async (email, password, body) => {
     const salt = await bcrypt.genSalt();
     const saltedHash = await bcrypt.hash(password, salt);
 
-    return User.create({ email, password: saltedHash, username: body.username })
+    User.create({ email, password: saltedHash, username: body.username })
+
+    const user = await this.getUser(email);
+    const token = await this.createToken(user._id);
+    return token
 }
 
 exports.getUser = async (email) => { return User.findOne({ email: email }) }

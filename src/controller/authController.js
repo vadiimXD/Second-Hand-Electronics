@@ -10,8 +10,9 @@ router.get("/register", (req, res) => {
 router.post("/register", async (req, res) => {
     console.log(req.body)
     try {
-        await authService.registerUser(req.body.email, req.body.password, req.body)
-        res.redirect("/login")
+        const token = await authService.registerUser(req.body.email, req.body.password, req.body)
+        res.cookie("token", token)
+        res.redirect("/")
     } catch (error) {
         let errorMess = getErrorMessage(error)
         res.render(`register`, { layout: false, error: errorMess })
