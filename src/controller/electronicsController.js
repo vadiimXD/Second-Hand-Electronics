@@ -33,8 +33,8 @@ router.get("/details/:productId", async (req, res) => {
     try {
         const product = await electronicsService.getOneProduct(req.params.productId).lean();
         const isOwner = product.owner == req.user?.userId
-        console.log(product)
-        res.render("details", { layout: false, product, isOwner })
+        const isBought = electronicsService.checkIsBought(product.buyingList, req.user?.userId)
+        res.render("details", { layout: false, product, isOwner, isBought })
     } catch (error) {
         const errorMess = getErrorMessage(error)
         res.render("404", { layout: false, error: errorMess })
@@ -58,6 +58,16 @@ router.post("/edit/:productId", async (req, res) => {
     } catch (error) {
         const errorMess = getErrorMessage(error)
         res.render("edit", { layout: false, product: req.body, error: errorMess })
+    }
+})
+
+router.get("/buy/:productId", async (req, res) => {
+    try {
+        await electronicsService.buyProduct(req.params.productId, req.user.userId)
+        res.redirect(`/details/${req.params.productId}`)
+    } catch (error) {
+        const errorMess = getErrorMessage(error)
+        res.render("404", { layout: false, error: errorMess })
     }
 })
 
