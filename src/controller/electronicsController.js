@@ -81,4 +81,24 @@ router.get("/delete/:productId", async (req, res) => {
     }
 })
 
+router.get("/search", async (req, res) => {
+    try {
+        const products = await electronicsService.getAllProducts().lean()
+        res.render("search", { layout: false, products })
+    } catch (error) {
+        const errorMess = getErrorMessage(error)
+        res.render("404", { layout: false, error: errorMess })
+    }
+})
+
+router.post("/search", async (req, res) => {
+    try {
+        const products = await electronicsService.searchProducts(req.body.name, req.body.type)
+        res.render("search", { layout: false, products })
+    } catch (error) {
+        const errorMess = getErrorMessage(error)
+        res.render("404", { layout: false, error: errorMess })
+    }
+})
+
 module.exports = router

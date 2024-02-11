@@ -13,3 +13,24 @@ exports.buyProduct = (productId, userId) => { return Electronics.findByIdAndUpda
 exports.checkIsBought = (boughtList, userId) => { return boughtList.filter(x => x._id == userId) }
 
 exports.deleteProduct = (productId) => { return Electronics.findByIdAndDelete(productId) }
+
+exports.searchProducts = async (name, type) => {
+    const query = {}
+    if (name) {
+        const nameRegex = new RegExp('^' + name, 'i');
+        query.name = { $regex: nameRegex }
+    }
+
+    if (type) {
+        const typeRegex = new RegExp('^' + type, 'i');
+        query.type = { $regex: typeRegex }
+    }
+
+    if (!name && !type) {
+        return []
+    }
+
+    console.log(query)
+    return await Electronics.find(query).lean()
+
+}
