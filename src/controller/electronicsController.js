@@ -1,8 +1,9 @@
+const router = require("express").Router();
+
 const { isAuth } = require("../middlewares/authMiddlewares");
 const electronicsService = require("../services/electronicsService");
 const { getErrorMessage } = require("../utils/errorUtils");
 
-const router = require("express").Router();
 
 router.get("/catalog", async (req, res) => {
     try {
@@ -51,7 +52,7 @@ router.get("/edit/:productId", isAuth, async (req, res) => {
     }
 })
 
-router.post("/edit/:productId", async (req, res) => {
+router.post("/edit/:productId", isAuth, async (req, res) => {
     try {
         await electronicsService.updateProduct(req.params.productId, req.body);
         res.redirect(`/details/${req.params.productId}`)
@@ -61,7 +62,7 @@ router.post("/edit/:productId", async (req, res) => {
     }
 })
 
-router.get("/buy/:productId", async (req, res) => {
+router.get("/buy/:productId", isAuth, async (req, res) => {
     try {
         await electronicsService.buyProduct(req.params.productId, req.user.userId)
         res.redirect(`/details/${req.params.productId}`)
@@ -71,7 +72,7 @@ router.get("/buy/:productId", async (req, res) => {
     }
 })
 
-router.get("/delete/:productId", async (req, res) => {
+router.get("/delete/:productId", isAuth, async (req, res) => {
     try {
         await electronicsService.deleteProduct(req.params.productId)
         res.redirect("/catalog")
@@ -81,7 +82,7 @@ router.get("/delete/:productId", async (req, res) => {
     }
 })
 
-router.get("/search", async (req, res) => {
+router.get("/search", isAuth, async (req, res) => {
     try {
         const products = await electronicsService.getAllProducts().lean()
         res.render("search", { layout: false, products })
@@ -91,7 +92,7 @@ router.get("/search", async (req, res) => {
     }
 })
 
-router.post("/search", async (req, res) => {
+router.post("/search", isAuth, async (req, res) => {
     try {
         const products = await electronicsService.searchProducts(req.body.name, req.body.type)
         res.render("search", { layout: false, products })
