@@ -1,2 +1,2 @@
 # Second-Hand-Electronics
-SoftUni EXAM PREP :)
+ @SoftUni JS BACKEND EXAM PREP :)
